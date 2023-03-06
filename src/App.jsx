@@ -1,11 +1,8 @@
-import Hero from './components/Hero';
+import Routes from './routes/index';
 const App = () => {
   return (
-    <div
-      className='flex min-h-screen w-full items-center justify-center 
-  '
-    >
-      <Hero />
+    <div>
+      <Routes />
     </div>
   );
 };
