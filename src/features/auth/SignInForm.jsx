@@ -30,7 +30,7 @@ const SignInForm = () => {
   return (
     <Formik>
       <Form onSubmit={formik.handleSubmit}>
-        <div className='mx-auto w-full font-galano md:w-[400px]'>
+        <div className='mx-auto w-full rounded-[3px] bg-white p-4 py-8 font-galano md:w-[400px]'>
           <div className='input-container'>
             <Field
               name='email'

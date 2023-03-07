@@ -6,7 +6,7 @@ const Layout = () => {
   return (
     <div>
       <NavigationBar />
-      <main className=' p-4 px-4 md:px-8'>
+      <main className='min-h-screen bg-purple-black font-galano text-white'>
         <Outlet />
       </main>
     </div>

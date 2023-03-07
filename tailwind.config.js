@@ -46,6 +46,11 @@ module.exports = {
         animation: {
           spin: 'spin 1s linear infinite'
         }
+      },
+
+      //background Image
+      backgroundImage: {
+        'purple-black': 'linear-gradient(90deg,#1f022f 0,#461f59 100%)'
       }
     },
     // Mobile First Approach
