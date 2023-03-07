@@ -5,18 +5,19 @@ const authSlice = createSlice({
   initialState: {
     loading: false,
     error: '',
-    successMessage: ''
+    user: JSON.parse(localStorage.getItem('simplescribe_user'))
   },
+
   reducers: {
-    setLoading: (state, action) => {
+    setStatus: (state, action) => {
       // Set the loading state to the payload value.
       state.loading = action.payload;
     },
 
-    setSuccessMessage: (state, action) => {
+    setUser: (state, action) => {
       // Set the success message and clear the error and loading states.
       const { payload } = action;
-      state.successMessage = payload;
+      state.user = payload;
       state.error = '';
       state.loading = false;
     },
@@ -25,15 +26,14 @@ const authSlice = createSlice({
       // Set the error message and clear the success and loading states.
       const { payload } = action;
       state.error = payload;
-      state.successMessage = '';
+      state.user = null;
       state.loading = false;
     }
-  },
-  extraReducers: {}
+  }
 });
 
 // Export the action creators.
-export const { setLoading, setSuccessMessage, setError } = authSlice.actions;
+export const { setStatus, setUser, setError } = authSlice.actions;
 
 // Export the reducer.
 export default authSlice.reducer;

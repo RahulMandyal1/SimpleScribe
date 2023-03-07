@@ -1,5 +1,6 @@
 import React from 'react';
 import SignInForm from '../features/auth/SignInForm';
+import withLoginSignupRedirect from '../hoc/withLoginSignupRedirect';
 
 const LoginPage = () => {
   return (
@@ -9,4 +10,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default withLoginSignupRedirect(LoginPage);

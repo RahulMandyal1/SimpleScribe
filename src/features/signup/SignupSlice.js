@@ -28,8 +28,7 @@ const signupSlice = createSlice({
       state.successMessage = '';
       state.loading = false;
     }
-  },
-  extraReducers: {}
+  }
 });
 
 // Export the action creators.

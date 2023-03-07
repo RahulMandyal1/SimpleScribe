@@ -12,7 +12,6 @@ export const createUser = (data) => async (dispatch) => {
       ...data
     }
   };
-
   try {
     dispatch(setStatus(true));
     const response = await axios.post(BASE_URL, userData);
@@ -20,7 +19,6 @@ export const createUser = (data) => async (dispatch) => {
       dispatch(setSuccessMessage('Created Successfully'));
     }
   } catch (error) {
-    console.log(error, 'axios response');
-    dispatch(setError(error.response.data.message));
+    dispatch(setError(error?.response?.data?.errors));
   }
 };

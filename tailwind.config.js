@@ -14,7 +14,8 @@ module.exports = {
       lilacgray: '#C7C5C9',
       slategray: '#737376',
       darkraspberry: '#30063A',
-      darkorchid: '#7F3F98'
+      darkorchid: '#7F3F98',
+      danger: '#FF0000'
     },
     extend: {
       // font family

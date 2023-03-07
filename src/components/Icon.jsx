@@ -23,10 +23,10 @@ const StyledSVGIcon = styled(ReactSVG)`
           fill: ${color};
         `}
       &:hover {
-        ${({ hoverColor }) =>
-          hoverColor &&
+        ${({ hovercolor }) =>
+          hovercolor &&
           css`
-            fill: ${hoverColor};
+            fill: ${hovercolor};
           `}
       }
     }
@@ -45,7 +45,7 @@ const Icon = (props) => {
       size={props.size}
       transform={props.transform}
       className={props?.class}
-      hoverColor={props?.hoverColor}
+      hovercolor={props?.hovercolor}
     />
   );
 };
