@@ -7,7 +7,15 @@ module.exports = {
     colors: {
       green: '#72C699',
       blue: '#3EC6F2',
-      mainblue: '#18A0FB'
+      mainblue: '#18A0FB',
+      black: '#000',
+      white: '#fff',
+      offWhite: '#FCFBFD',
+      lilacgray: '#C7C5C9',
+      slategray: '#737376',
+      darkraspberry: '#30063A',
+      darkorchid: '#7F3F98',
+      danger: '#FF0000'
     },
     extend: {
       // font family
@@ -23,6 +31,26 @@ module.exports = {
         bold: 700,
         extrabold: 800,
         black: 900
+      },
+      keyframes: {
+        spin: {
+          from: {
+            transform: 'rotate(0deg)'
+          },
+          to: {
+            transform: 'rotate(360deg)'
+          }
+        },
+
+        //custom animation
+        animation: {
+          spin: 'spin 1s linear infinite'
+        }
+      },
+
+      //background Image
+      backgroundImage: {
+        'purple-black': 'linear-gradient(90deg,#1f022f 0,#461f59 100%)'
       }
     },
     // Mobile First Approach

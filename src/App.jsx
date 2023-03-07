@@ -1,11 +1,20 @@
-import Hero from './components/Hero';
+import Routes from './routes/index';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { validateCurrentUser } from './features/auth/authAPI';
+
 const App = () => {
+  const { user } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+
+  //Validate User token
+  useEffect(() => {
+    dispatch(validateCurrentUser(user?.token));
+  }, [user]);
+
   return (
-    <div
-      className='flex min-h-screen w-full items-center justify-center 
-  '
-    >
-      <Hero />
+    <div>
+      <Routes />
     </div>
   );
 };
