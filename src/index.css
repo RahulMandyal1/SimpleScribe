@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /*Custom fonts */
+  @font-face {
+    font-family: Galano-Grotesque;
+    font-weight: 100 400 500 600 700 800 900;
+    font-display: swap;
+    src: url('/public/fonts/Galano-Grotesque-Regular.otf') format('opentype'),
+      url('/public/fonts/Galano-Grotesque-Medium.otf') format('opentype'),
+      url('/public/fonts/Galano-Grotesque-SemiBold.otf') format('opentype'),
+      url('/public/fonts/Galano-Grotesque-Bold.otf') format('opentype');
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: 'Galano-Grotesque', 'sans-serif';
+  }
+  li {
+    list-style-type: none;
+  }
+
+  /* custom  input styling start here */
+  .input-container {
+    @apply border;
+    @apply border-solid;
+    @apply border-lilacgray;
+    height: 42px;
+    border-radius: 3px;
+    background: #fcfbfd;
+    margin-bottom: 12px;
+  }
+  .input-container input {
+    height: 100%;
+    width: 100%;
+    padding: 2px 8px;
+    transition: all 0.3 ease;
+    background: transparent;
+    @apply text-slategray;
+    font-size: 16px;
+    font-weight: 500;
+    text-transform: none !important;
+  }
+
+  .input-container input:focus {
+    @apply outline-darkraspberry;
+    @apply outline-1;
+  }
+
+  .input-container input::placeholder {
+    @apply text-slategray;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  /* custom input styling ends here  */
+}
