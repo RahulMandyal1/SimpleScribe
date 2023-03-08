@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Link, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import Icon from './Icon';
 import { NEW_POST_URL, HOME_URL, LOGIN_URL, SIGNUP_URL } from '../constant/url';
+import { logoutUser } from '../features/auth/authSlice.js';
 
 const NavigationBar = () => {
   const { user } = useSelector((state) => state.auth);
   const [showMenus, setShowMenus] = useState(false);
+  const dispatch = useDispatch();
 
   //toggle Menus
   const toggleMenus = () => {
@@ -20,12 +22,18 @@ const NavigationBar = () => {
     setShowMenus(false);
   };
 
+  const handleLogoutUser = () => {
+    dispatch(logoutUser());
+  };
+
   const authorizedUser = user?.email && user?.token;
 
   return (
-    <header className='relative flex w-full items-center justify-between px-4 py-4 font-galano font-normal md:px-8'>
-      <div className='font-extrabold'>
-        <span>SimpleScribe</span>
+    <header className='border-1 sticky top-0 z-50 flex w-full items-center justify-between border-b border-slategray bg-white px-4 py-4 font-galano font-normal md:px-8'>
+      <div className='text-xl font-extrabold'>
+        <Link to={HOME_URL}>
+          <span>SimpleScribe</span>
+        </Link>
       </div>
       <div
         className='h-full md:hidden 
@@ -41,7 +49,7 @@ const NavigationBar = () => {
       <nav
         className={`absolute  top-[110%]  right-4  rounded-[3px] bg-white shadow-lg md:rounded-none md:shadow-none ${
           showMenus ? 'flex' : 'hidden'
-        } flex-col items-center justify-between py-6  md:relative md:inline-flex md:flex-row md:py-0`}
+        } flex-col items-start justify-between py-6 md:relative  md:inline-flex md:flex-row md:items-center md:py-0`}
       >
         <li className='mx-4' onClick={handleCloseMenus}>
           <NavLink
@@ -82,7 +90,10 @@ const NavigationBar = () => {
                 NewPost
               </NavLink>
             </li>
-            <li className='mx-4'>
+            <li className='mx-4' onClick={handleLogoutUser}>
+              Logout
+            </li>
+            <li className='mx-4 hidden md:inline-block'>
               <div>
                 <img
                   src={user?.image}

@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     // all colors  palletes
     colors: {
-      green: '#72C699',
+      green: '#0bce9a',
       blue: '#3EC6F2',
       mainblue: '#18A0FB',
       black: '#000',

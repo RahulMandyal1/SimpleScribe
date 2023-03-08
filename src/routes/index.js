@@ -1,12 +1,13 @@
 import React from 'react';
 import Home from '../pages/Home';
 import { useRoutes } from 'react-router';
-import { HOME_URL, LOGIN_URL, NEW_POST_URL, SIGNUP_URL } from '../constant/url';
+import { DETAILED_ARTICLE, HOME_URL, LOGIN_URL, NEW_POST_URL, SIGNUP_URL } from '../constant/url';
 import Layout from '../layout/Layout';
 import SignUp from '../pages/SignUp';
 import LoginPage from '../pages/LoginPage';
 import NewPost from '../pages/NewPost';
 import RequireAuth from '../components/RequiredAuth';
+import DetailedArticle from '../pages/DetailedArticle';
 
 const Routes = () => {
   const content = useRoutes([
@@ -33,6 +34,10 @@ const Routes = () => {
               <NewPost />
             </RequireAuth>
           )
+        },
+        {
+          path: DETAILED_ARTICLE,
+          element: <DetailedArticle />
         }
       ]
     }
