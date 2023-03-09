@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Icon from '../../components/Icon';
 import ListErrors from '../../components/ListErrors';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
 const validate = yup.object().shape({
   email: yup.string().required('This is a required field*'),
@@ -16,6 +17,8 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const { loading, error } = useSelector((state) => state?.signUp);
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -23,7 +26,7 @@ const SignupForm = () => {
       password: ''
     },
     onSubmit: (values) => {
-      dispatch(createUser(values));
+      dispatch(createUser(values, navigate));
     },
     validateOnChange: true,
     validationSchema: validate
