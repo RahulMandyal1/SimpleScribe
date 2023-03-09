@@ -4,6 +4,13 @@ import { createUser } from './SignupAPI';
 import { useDispatch, useSelector } from 'react-redux';
 import Icon from '../../components/Icon';
 import ListErrors from '../../components/ListErrors';
+import * as yup from 'yup';
+
+const validate = yup.object().shape({
+  email: yup.string().required('This is a required field*'),
+  password: yup.string().required('This is a required field*'),
+  username: yup.string().required('This is a required field*')
+});
 
 const SignupForm = () => {
   const dispatch = useDispatch();
@@ -17,7 +24,9 @@ const SignupForm = () => {
     },
     onSubmit: (values) => {
       dispatch(createUser(values));
-    }
+    },
+    validateOnChange: true,
+    validationSchema: validate
   });
 
   //Toggle password visibility
@@ -26,6 +35,8 @@ const SignupForm = () => {
       return !previousState;
     });
   };
+
+  const buttonDisabled = formik.errors.email || formik.errors.password || formik.errors.username;
 
   return (
     <Formik>
@@ -37,6 +48,7 @@ const SignupForm = () => {
               value={formik.values.username}
               onChange={formik.handleChange}
               placeholder='Username'
+              className={formik.errors.username && formik.touched.username && 'red-border'}
             />
           </div>
           <div className='input-container'>
@@ -45,6 +57,7 @@ const SignupForm = () => {
               value={formik.values.email}
               onChange={formik.handleChange}
               placeholder='Email'
+              className={formik.errors.email && formik.touched.email && 'red-border'}
             />
           </div>
           <div className='mb-4'>
@@ -55,6 +68,7 @@ const SignupForm = () => {
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 placeholder='Password'
+                className={formik.errors.password && formik.touched.password && 'red-border'}
               />
               <div
                 className='absolute right-1 top-0 flex h-full w-6 items-center justify-center'
@@ -73,8 +87,12 @@ const SignupForm = () => {
           </div>
           <button
             type='submit'
-            className='flex h-[42px] w-full items-center justify-center rounded-[3px] bg-darkorchid font-bold tracking-[1px] text-white'
+            className={`
+            flex h-[42px] w-full items-center justify-center rounded-[3px] bg-darkorchid font-bold tracking-[1px] text-white ${
+              buttonDisabled && 'opacity-70'
+            }`}
             onClick={formik.handleSubmit}
+            disabled={buttonDisabled && true}
           >
             {loading && <Icon name='loader' size={'32px'} />}
             Create Account
