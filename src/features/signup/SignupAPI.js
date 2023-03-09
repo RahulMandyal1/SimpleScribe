@@ -1,12 +1,13 @@
 import { getRootUrl } from '../../utils/globalFun';
 import { setStatus, setError, setSuccessMessage } from './SignupSlice';
 import axios from 'axios';
+import { HOME_URL } from '../../constant/url';
 
 const ROOT_URL = getRootUrl();
 const BASE_URL = `${ROOT_URL}/users`;
 
 //To Create a new user account
-export const createUser = (data) => async (dispatch) => {
+export const createUser = (data, navigate) => async (dispatch) => {
   const userData = {
     user: {
       ...data
@@ -18,6 +19,7 @@ export const createUser = (data) => async (dispatch) => {
     if (response.data.user) {
       dispatch(setSuccessMessage('Created Successfully'));
     }
+    return navigate(HOME_URL);
   } catch (error) {
     dispatch(setError(error?.response?.data?.errors));
   }
