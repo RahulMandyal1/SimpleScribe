@@ -8,6 +8,7 @@ import LoginPage from '../pages/LoginPage';
 import NewPost from '../pages/NewPost';
 import RequireAuth from '../components/RequiredAuth';
 import DetailedArticle from '../pages/DetailedArticle';
+import NotFound from '../pages/NotFound';
 
 const Routes = () => {
   const content = useRoutes([
@@ -40,6 +41,10 @@ const Routes = () => {
           element: <DetailedArticle />
         }
       ]
+    },
+    {
+      path: '*',
+      element: <NotFound />
     }
   ]);
   return content;
