@@ -51,7 +51,7 @@ const NavigationBar = () => {
           showMenus ? 'flex' : 'hidden'
         } flex-col items-start justify-between py-6 md:relative  md:inline-flex md:flex-row md:items-center md:py-0`}
       >
-        <li className='mx-4' onClick={handleCloseMenus}>
+        <li className='mx-4 my-2 md:my-0' onClick={handleCloseMenus}>
           <NavLink
             to={HOME_URL}
             className={({ isActive }) => (isActive ? 'font-semibold text-green' : 'text-black')}
@@ -61,7 +61,7 @@ const NavigationBar = () => {
         </li>
         {!authorizedUser && (
           <>
-            <li className='mx-4' onClick={handleCloseMenus}>
+            <li className='mx-4 my-2 md:my-0' onClick={handleCloseMenus}>
               <NavLink
                 to={LOGIN_URL}
                 className={({ isActive }) => (isActive ? 'font-semibold text-green' : 'text-black')}
@@ -69,7 +69,7 @@ const NavigationBar = () => {
                 Login
               </NavLink>
             </li>
-            <li className='mx-4' onClick={handleCloseMenus}>
+            <li className='mx-4 my-2 md:my-0' onClick={handleCloseMenus}>
               <NavLink
                 to={SIGNUP_URL}
                 className={({ isActive }) => (isActive ? 'font-semibold text-green' : 'text-black')}
@@ -82,7 +82,7 @@ const NavigationBar = () => {
 
         {authorizedUser && (
           <>
-            <li className='mx-4' onClick={handleCloseMenus}>
+            <li className='mx-4 my-2 md:my-0' onClick={handleCloseMenus}>
               <NavLink
                 to={NEW_POST_URL}
                 className={({ isActive }) => (isActive ? 'font-semibold text-green' : 'text-black')}
@@ -90,10 +90,10 @@ const NavigationBar = () => {
                 NewPost
               </NavLink>
             </li>
-            <li className='mx-4' onClick={handleLogoutUser}>
+            <li className='mx-4 my-2 md:my-0' onClick={handleLogoutUser}>
               Logout
             </li>
-            <li className='mx-4 hidden md:inline-block'>
+            <li className='mx-4 my-2 hidden md:my-0 md:inline-block'>
               <div>
                 <img
                   src={user?.image}
