@@ -18,7 +18,8 @@ const articlesSlice = createSlice({
     setArticles: (state, action) => {
       // Set the success message and clear the error and loading states.
       const { payload } = action;
-      state.articles = [...state.articles, ...payload];
+      state.articles = [...state.articles, ...payload.articles];
+      if (payload?.totalCount) state.totalArticles = payload?.totalCount;
       state.error = '';
       state.loading = false;
     },

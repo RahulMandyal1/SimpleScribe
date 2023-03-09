@@ -69,23 +69,38 @@ const NewPost = () => {
                 className={formik.errors.body && formik.touched.body && 'red-border'}
               />
             </div>
-            <div className='input-container'>
-              <Field
-                name='tags'
-                value={formik.values.tags}
-                onChange={formik.handleChange}
-                onKeyDown={(event) => {
-                  if (event.key === 'Enter' || event.key === ',') {
-                    event.preventDefault();
-                    const newTag = event.target.value.trim();
-                    if (newTag !== '' && !formik.values.tagList.includes(newTag)) {
-                      formik.setFieldValue('tagList', [...formik.values.tagList, newTag]);
+            <div>
+              <div className='input-container'>
+                <Field
+                  name='tags'
+                  value={formik.values.tags}
+                  onChange={formik.handleChange}
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ',') {
+                      event.preventDefault();
+                      const newTag = event.target.value.trim();
+                      if (newTag !== '' && !formik.values.tagList.includes(newTag)) {
+                        formik.setFieldValue('tagList', [...formik.values.tagList, newTag]);
+                      }
+                      event.target.value = '';
+                      formik.setFieldValue('tags', '');
                     }
-                    event.target.value = '';
-                  }
-                }}
-                placeholder='Tags'
-              />
+                  }}
+                  placeholder='press comma or enter to enter a tag '
+                />
+              </div>
+              <div className='my-2 mb-6 flex items-center'>
+                {formik?.values?.tagList.map((tag) => {
+                  return (
+                    <div
+                      className='mx-1 rounded-full border border-[#dddddd] px-2 py-1 text-[12px] text-black'
+                      key={tag}
+                    >
+                      {tag}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
             <button
               type='submit'

@@ -41,17 +41,14 @@ const Article = ({ article, handleFavouriteArticle }) => {
       </h3>
       <p className='my-2 text-slategray'>{article?.description.slice(0, 150)}...</p>
       <div
-        className='my-2 flex flex-wrap items-center justify-between
+        className='my-2 flex  flex-wrap items-center justify-between 
       '
       >
-        <button className=' text-sm font-semibold text-green'>
-          <Link to={`/article/${article?.slug}`}>ReadMore..</Link>
-        </button>
-        <div className='flex items-center'>
+        <div className='flex flex-shrink flex-wrap items-center'>
           {article?.tagList.map((tag) => {
             return (
               <div
-                className='mx-1 rounded-full border border-[#dddddd] px-2 py-1 text-[12px]'
+                className='mx-1 my-1 rounded-full border border-[#dddddd] px-2 py-1 text-[12px] md:my-0'
                 key={tag}
               >
                 {tag}
@@ -59,6 +56,9 @@ const Article = ({ article, handleFavouriteArticle }) => {
             );
           })}
         </div>
+        <button className=' my-2 text-sm font-semibold text-green md:my-0'>
+          <Link to={`/article/${article?.slug}`}>ReadMore..</Link>
+        </button>
       </div>
     </article>
   );

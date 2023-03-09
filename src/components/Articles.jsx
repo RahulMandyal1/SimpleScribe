@@ -2,54 +2,56 @@ import React, { useEffect, useRef } from 'react';
 import {
   favouriteArticle,
   getArticles,
-  unFavouriteArticle
+  unFavouriteArticle,
+  fetchInit
 } from '../features/articles/articlesAPI';
 import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../components/loader/Loader';
 import Article from './Article';
 import ListErrors from '../components/ListErrors';
+import { LOGIN_URL } from '../constant/url';
+import { useNavigate } from 'react-router-dom';
 
 const Articles = () => {
   const { articles, loading, error, totalArticles } = useSelector((state) => state.articles);
+  const perPageRecord = 10;
+  const fetchPageLength = Math.floor(totalArticles / perPageRecord);
   const dispatch = useDispatch();
   const pageRef = useRef(0);
-  const perPageRecord = 10;
   const { user } = useSelector((state) => state.auth);
-  const lastPage = Math.ceil(totalArticles / perPageRecord);
+  const navigate = useNavigate();
 
+  //init
   useEffect(() => {
-    //limit of the article is by default set to 10
-    dispatch(getArticles(pageRef.current, perPageRecord));
+    dispatch(fetchInit(pageRef.current, perPageRecord));
   }, []);
 
-  //loads new articles
-  const loadMoreArticles = async () => {
-    if (pageRef.current <= lastPage) {
-      pageRef.current += 1;
-      dispatch(getArticles(pageRef.current, perPageRecord));
-    }
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = document.documentElement.clientHeight;
+      if (scrollTop + clientHeight >= scrollHeight - 100 && pageRef.current < fetchPageLength) {
+        pageRef.current += 1;
+        dispatch(getArticles(pageRef.current, perPageRecord));
+      }
+    };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [fetchPageLength]);
 
-  const handleScroll = () => {
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-
-    if (scrollTop + clientHeight >= scrollHeight - 100 && pageRef.current < lastPage) {
-      loadMoreArticles();
-    }
-  };
-
+  //favorite article
   const handleFavouriteArticle = (article) => {
-    if (article?.favorited) {
-      dispatch(unFavouriteArticle(article?.slug, user?.token));
+    if (user) {
+      if (article?.favorited) {
+        //if user has already liked article then dislike it
+        dispatch(unFavouriteArticle(article?.slug, user?.token));
+      } else {
+        //like article
+        dispatch(favouriteArticle(article?.slug, user?.token));
+      }
     } else {
-      dispatch(favouriteArticle(article?.slug, user?.token));
+      navigate(LOGIN_URL);
     }
   };
 

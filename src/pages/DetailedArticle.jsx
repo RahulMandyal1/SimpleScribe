@@ -134,7 +134,7 @@ const DetailedArticle = () => {
                               handleDeleteComment(comment?.id);
                             }}
                           >
-                            <Icon name='delete' color={'red'} size={'30px'} />
+                            <Icon name='delete' color={'red'} size={'20px'} />
                           </div>
                         )}
                       </div>

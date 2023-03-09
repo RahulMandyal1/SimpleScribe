@@ -4,6 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import Icon from '../../components/Icon';
 import { loginUser } from './authAPI';
 import ListErrors from '../../components/ListErrors';
+import * as yup from 'yup';
+
+const validate = yup.object().shape({
+  email: yup.string().required('This is a required field*'),
+  password: yup.string().required('This is a required field*')
+});
 
 const SignInForm = () => {
   const dispatch = useDispatch();
@@ -17,7 +23,9 @@ const SignInForm = () => {
     },
     onSubmit: (values) => {
       dispatch(loginUser(values));
-    }
+    },
+    validateOnChange: true,
+    validationSchema: validate
   });
 
   //Toggle password visibility
@@ -26,6 +34,8 @@ const SignInForm = () => {
       return !previousState;
     });
   };
+
+  const buttonDisabled = formik.errors.email || formik.errors.password;
 
   return (
     <Formik>
@@ -37,6 +47,7 @@ const SignInForm = () => {
               value={formik.values.email}
               onChange={formik.handleChange}
               placeholder='Email'
+              className={formik.errors.email && formik.touched.email && 'red-border'}
             />
           </div>
           <div className='input-container relative'>
@@ -46,6 +57,7 @@ const SignInForm = () => {
               value={formik.values.password}
               onChange={formik.handleChange}
               placeholder='Password'
+              className={formik.errors.password && formik.touched.password && 'red-border'}
             />
             <div
               className='absolute right-1 top-0 flex h-full w-6 items-center justify-center'
@@ -60,8 +72,12 @@ const SignInForm = () => {
           </div>
           <button
             type='submit'
-            className='flex h-[42px] w-full items-center justify-center rounded-[3px] bg-darkorchid font-bold tracking-[1px] text-white'
+            className={`
+         flex h-[42px] w-full items-center justify-center rounded-[3px] bg-darkorchid font-bold tracking-[1px] text-white ${
+           buttonDisabled && 'opacity-70'
+         }`}
             onClick={formik.handleSubmit}
+            disabled={buttonDisabled && true}
           >
             {loading && <Icon name='loader' size={'32px'} />}
             Sign In
