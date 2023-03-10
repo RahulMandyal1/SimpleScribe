@@ -20,29 +20,23 @@ const Articles = () => {
   const pageRef = useRef(0);
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+  const sentinelRef = useRef(null);
 
   //init
   useEffect(() => {
     dispatch(fetchInit(pageRef.current, perPageRecord));
   }, []);
 
+  // fetch more articles when sentinel comes into view
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollTop = document.documentElement.scrollTop;
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = document.documentElement.clientHeight;
-      if (scrollTop + clientHeight >= scrollHeight - 100 && pageRef.current < fetchPageLength) {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && pageRef.current < fetchPageLength) {
         pageRef.current += 1;
         dispatch(getArticles(pageRef.current, perPageRecord));
-        // Scroll to the new Y position
-        return window.scrollTo({
-          top: scrollTop - 200,
-          behavior: 'smooth'
-        });
       }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    });
+    observer.observe(sentinelRef.current);
+    return () => observer.disconnect();
   }, [fetchPageLength]);
 
   //favorite article
@@ -73,6 +67,7 @@ const Articles = () => {
           );
         })}
       </div>
+      <div ref={sentinelRef}></div>
       <div>{loading && <Loader style={'h-[15vh]  min-h-[15vh]'} />}</div>
       <ListErrors errors={error} />
     </div>
