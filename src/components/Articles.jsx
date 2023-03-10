@@ -37,7 +37,7 @@ const Articles = () => {
     });
     observer.observe(sentinelRef.current);
     return () => observer.disconnect();
-  }, [fetchPageLength]);
+  }, [fetchPageLength, articles]);
 
   //favorite article
   const handleFavouriteArticle = (article) => {
@@ -63,6 +63,7 @@ const Articles = () => {
               article={article}
               handleFavouriteArticle={handleFavouriteArticle}
               key={index}
+              ref={articles.length - 1 === index ? sentinelRef : null}
             />
           );
         })}
