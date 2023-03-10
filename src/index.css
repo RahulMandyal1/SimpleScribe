@@ -82,4 +82,9 @@
   }
 
   /* scroll bar styling ends here  */
+
+  /* common button styling  */
+  button {
+    cursor: pointer;
+  }
 }
