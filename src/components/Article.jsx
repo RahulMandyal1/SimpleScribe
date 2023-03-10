@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Link } from 'react-router-dom';
 import { formatDate } from '../utils/globalFun';
 import Icon from '../components/Icon';
 
-const Article = ({ article, handleFavouriteArticle }) => {
+const Article = forwardRef(({ article, handleFavouriteArticle }, ref) => {
   return (
-    <article
-      className='w-full rounded-[3px] bg-white p-4 text-black
-        '
-    >
+    <article className='w-full rounded-[3px] bg-white p-4 text-black' ref={ref}>
       <div
         className='flex items-center justify-between
             '
@@ -62,6 +59,6 @@ const Article = ({ article, handleFavouriteArticle }) => {
       </div>
     </article>
   );
-};
+});
 
 export default Article;
