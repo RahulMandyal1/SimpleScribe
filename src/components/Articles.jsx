@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const Articles = () => {
   const { articles, loading, error, totalArticles } = useSelector((state) => state.articles);
   const perPageRecord = 10;
-  const fetchPageLength = Math.floor(totalArticles / perPageRecord);
+  const fetchPageLength = Math.floor(totalArticles / perPageRecord) - 1;
   const dispatch = useDispatch();
   const pageRef = useRef(0);
   const { user } = useSelector((state) => state.auth);
@@ -34,6 +34,11 @@ const Articles = () => {
       if (scrollTop + clientHeight >= scrollHeight - 100 && pageRef.current < fetchPageLength) {
         pageRef.current += 1;
         dispatch(getArticles(pageRef.current, perPageRecord));
+        // Scroll to the new Y position
+        return window.scrollTo({
+          top: scrollTop - 200,
+          behavior: 'smooth'
+        });
       }
     };
     window.addEventListener('scroll', handleScroll);
